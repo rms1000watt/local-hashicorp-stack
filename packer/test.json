@@ -1,35 +1,32 @@
 {
   "variables": {
-    "aws_access_key": "",
-    "aws_secret_key": ""
+    "ubuntu_vm_name": "test-ubuntu-xenial",
+    "cpu": "2",
+    "ram": "1024",
+    "disk": "40960",
+    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
+    "iso_checksum": "10fcd20619dce11fe094e960c85ba4a9",
+    "iso_checksum_type": "md5",
+    "user": "packer",
+    "pass": "packer"
   },
   "builders": [
     {
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
-      "disk_size": 40960,
+      "vm_name": "{{user `ubuntu_vm_name`}}",
+      "disk_size": "{{user `disk`}}",
       "headless": false,
       "http_directory": ".",
       "ssh_wait_timeout": "30m",
-      "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
-      "iso_checksum": "10fcd20619dce11fe094e960c85ba4a9",
-      "iso_checksum_type": "md5",
-      "ssh_username": "packer",
-      "ssh_password": "packer",
-      "vm_name": "test-ubuntu-16.04-amd64",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "ssh_username": "{{user `user`}}",
+      "ssh_password": "{{user `pass`}}",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "1024"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "1"
-        ]
+        ["modifyvm", "{{.Name}}", "--memory", "{{user `ram`}}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpu`}}"]
       ],
       "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
       "boot_command": [
