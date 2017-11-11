@@ -24,6 +24,7 @@ The workflow is:
 
 - OS X
 - Homebrew
+- Golang (`brew install go`)
 - `brew install packer terraform`
 - Install VirtualBox manually (`brew cask install virutalbox` was breaking on High Sierra)
 
@@ -31,11 +32,19 @@ The workflow is:
 
 ```bash
 cd packer
-packer build -on-error=abort test.json
+packer build -on-error=abort -force test.json
+tar -zcvf test-ubuntu-xenial.box test-ubuntu-xenial.ovf test-ubuntu-xenial-disk001.vmdk
 cd ..
 ```
 
 ## Deploy
+
+```bash
+cd terraform
+terraform init
+terraform apply
+cd ..
+```
 
 ## Play
 
@@ -44,3 +53,4 @@ cd ..
 ## Attributions
 
 - [https://github.com/geerlingguy/packer-ubuntu-1604](https://github.com/geerlingguy/packer-ubuntu-1604)
+- [https://github.com/ccll/terraform-provider-virtualbox](https://github.com/ccll/terraform-provider-virtualbox)

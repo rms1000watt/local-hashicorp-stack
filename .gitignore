@@ -2,3 +2,7 @@
 .vscode
 packer_cache
 output-virtualbox-iso
+*.box
+terraform/example
+*tfstate*
+terraform/.terraform
