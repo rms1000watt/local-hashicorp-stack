@@ -60,7 +60,10 @@
   "provisioners": [
       {
           "type": "shell",
-          "script": "./install.sh"
+          "execute_command": "echo 'packer' | sudo -S -E sh {{.Path}}",
+          "scripts": [
+            "./install.sh"
+          ]
       }
   ]
 }

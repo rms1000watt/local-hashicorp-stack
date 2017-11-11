@@ -33,8 +33,9 @@ The workflow is:
 ```bash
 cd packer
 packer build -on-error=abort -force test.json
-tar -zcvf test-ubuntu-xenial.box test-ubuntu-xenial.ovf test-ubuntu-xenial-disk001.vmdk
-cd ..
+cd output-virtualbox-iso
+tar -zcvf test-ubuntu-xenial.box *.ovf *.vmdk
+cd ../..
 ```
 
 ## Deploy
