@@ -24,7 +24,6 @@ The workflow is:
 
 - OS X
 - Homebrew
-- Golang (`brew install go`)
 - `brew install packer terraform`
 - Install VirtualBox manually (`brew cask install virutalbox` was breaking on High Sierra)
 
