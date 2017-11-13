@@ -31,9 +31,9 @@ The workflow is:
 
 ```bash
 cd packer
-packer build -on-error=abort -force test.json
+packer build -on-error=abort -force packer.json
 cd output-virtualbox-iso
-tar -zcvf test-ubuntu-xenial.box *.ovf *.vmdk
+tar -zcvf ubuntu-16.04-docker.box *.ovf *.vmdk
 cd ../..
 ```
 

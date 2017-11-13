@@ -1,6 +1,6 @@
 {
   "variables": {
-    "ubuntu_vm_name": "test-ubuntu-xenial",
+    "ubuntu_vm_name": "ubuntu-16.04-docker",
     "cpu": "2",
     "ram": "1024",
     "disk": "40960",
@@ -62,7 +62,7 @@
           "type": "shell",
           "execute_command": "echo 'packer' | sudo -S -E sh {{.Path}}",
           "scripts": [
-            "./install.sh"
+            "./provision.sh"
           ]
       }
   ]
