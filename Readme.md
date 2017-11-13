@@ -17,7 +17,6 @@ The workflow is:
 - [Build](#build)
 - [Deploy](#deploy)
 - [Play](#play)
-- [Examples](#examples)
 - [Attributions](#attributions)
 
 ## Prerequisites
@@ -48,7 +47,11 @@ cd ..
 
 ## Play
 
-## Examples
+Take the IP Address from the Terraform output then SSH into the VM, for example:
+
+```bash
+ssh packer@192.168.0.118
+```
 
 ## Attributions
 
