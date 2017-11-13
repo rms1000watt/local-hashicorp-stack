@@ -13,7 +13,7 @@ resource "virtualbox_vm" "node" {
 resource "null_resource" "node-provisioner" {
     # Run node-provisioner if the mac address changes (if machine is deleted not just off)
     triggers {
-        mac_address = "${element(virtualbox_vm.node.*.network_adapter.0.mac_address, 1)}"
+        mac_addresses = "${join(",", virtualbox_vm.node.*.network_adapter.0.mac_address)}"
     }
 
     connection {
