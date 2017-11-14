@@ -22,9 +22,9 @@ The workflow is:
 ## Prerequisites
 
 - OS X
-- Homebrew
+- [Homebrew](https://brew.sh/)
 - `brew install packer terraform`
-- `brew cask install virutalbox`
+- `brew cask install virtualbox`
 
 ## Build
 

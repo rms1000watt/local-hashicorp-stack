@@ -21,6 +21,7 @@ resource "null_resource" "node-provisioner" {
         host     = "${element(virtualbox_vm.node.*.network_adapter.0.ipv4_address, 1)}"
         user     = "packer"
         password = "packer"
+        timeout  = "1m"
     }
 
     provisioner "file" {
