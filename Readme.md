@@ -24,7 +24,7 @@ The workflow is:
 - OS X
 - Homebrew
 - `brew install packer terraform`
-- Install VirtualBox manually (`brew cask install virutalbox` was breaking on High Sierra)
+- `brew cask install virutalbox`
 
 ## Build
 
