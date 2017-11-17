@@ -1,0 +1,11 @@
+[Unit]
+Description=Consul
+Documentation=https://consul.io/docs/
+
+[Service]
+ExecStart=/bin/consul agent -config-file /consul/server.json -bind $(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
+ExecReload=/bin/kill -HUP $MAINPID
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
