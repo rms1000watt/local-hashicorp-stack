@@ -24,21 +24,25 @@ if [ ! -f /usr/local/bin/docker-compose ]; then
   chmod +x /usr/local/bin/docker-compose
 fi
 
+# Install Consul
+if [ ! -f /bin/consul ]; then
+  curl -L -o consul_${CONSUL_VERSION}_linux_amd64.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
+  unzip -d /bin consul_${CONSUL_VERSION}_linux_amd64.zip
+  rm consul_${CONSUL_VERSION}_linux_amd64.zip
+  chmod +x /bin/consul
+  systemctl enable consul.service
+  systemctl start consul
+fi
+
 # Install Nomad
 if [ ! -f /bin/nomad ]; then
   curl -L -o nomad_${NOMAD_VERSION}_linux_amd64.zip https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip
   unzip -d /bin nomad_${NOMAD_VERSION}_linux_amd64.zip
+  rm nomad_${NOMAD_VERSION}_linux_amd64.zip
   chmod +x /bin/nomad
   systemctl enable nomad.service
   systemctl start nomad
 fi
 
-# Install Consul
-if [ ! -f /bin/consul ]; then
-  curl -L -o consul_${CONSUL_VERSION}_linux_amd64.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
-  unzip -d /bin consul_${CONSUL_VERSION}_linux_amd64.zip
-  chmod +x /bin/consul
-  # systemctl enable consul.service
-  # systemctl start consul
-fi
-
+# export CONSUL_ADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
+# systemctl set-environment CONSUL_ADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)

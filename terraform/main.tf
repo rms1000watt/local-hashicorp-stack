@@ -68,8 +68,8 @@ resource "null_resource" "server-provisioner" {
     }
 }
 
-output "Server Connections" {
-    value = ["ssh packer@${virtualbox_vm.server.*.network_adapter.0.ipv4_address}"]
+output "Server Connection" {
+    value = "ssh packer@${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)}"
 }
 
 # output "Client Connections" {
