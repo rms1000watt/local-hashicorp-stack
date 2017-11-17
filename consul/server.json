@@ -4,5 +4,8 @@
   "datacenter": "dc-1",
   "server": true,
   "ui": true,
-  "bootstrap_expect": 1
+  "bootstrap_expect": 1,
+  "addresses": {
+    "http": "0.0.0.0"
+  }
 }

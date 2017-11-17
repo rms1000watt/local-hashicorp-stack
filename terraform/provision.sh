@@ -43,6 +43,3 @@ if [ ! -f /bin/nomad ]; then
   systemctl enable nomad.service
   systemctl start nomad
 fi
-
-# export CONSUL_ADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
-# systemctl set-environment CONSUL_ADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)

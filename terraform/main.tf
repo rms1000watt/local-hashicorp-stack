@@ -54,16 +54,16 @@ resource "null_resource" "server-provisioner" {
     }
 
     provisioner "file" {
-        source      = "provision-server.sh"
-        destination = "/home/packer/provision-server.sh"
+        source      = "provision.sh"
+        destination = "/home/packer/provision.sh"
     }
 
     provisioner "remote-exec" {
         inline = [
             "sudo mv /nomad/systemd-nomad-server.service /etc/systemd/system/nomad.service",
             "sudo mv /consul/systemd-consul-server.service /etc/systemd/system/consul.service",
-            "chmod a+x /home/packer/provision-server.sh",
-            "sudo /home/packer/provision-server.sh",
+            "chmod a+x /home/packer/provision.sh",
+            "sudo /home/packer/provision.sh",
         ]
     }
 }

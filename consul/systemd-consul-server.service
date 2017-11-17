@@ -4,7 +4,7 @@ Documentation=https://consul.io/docs/
 
 [Service]
 ExecStartPre=/bin/bash -c "/bin/systemctl set-environment CONSUL_ADDR=$(ifconfig eth0 | grep 'inet addr' | cut -d ':' -f 2 | cut -d ' ' -f 1)"
-ExecStart=/bin/consul agent -config-file /consul/server.json -bind ${CONSUL_ADDR} -client ${CONSUL_ADDR}
+ExecStart=/bin/consul agent -config-file /consul/server.json -bind ${CONSUL_ADDR}
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65536
 
