@@ -11,7 +11,7 @@ resource "virtualbox_vm" "server" {
 }
 
 resource "virtualbox_vm" "client" {
-    count = 1
+    count = 3
     name = "${format("client-%02d", count.index+1)}"
     image = "../packer/output-virtualbox-iso/ubuntu-16.04-docker.box"
     cpus = 2
@@ -28,9 +28,10 @@ resource "null_resource" "server-provisioner" {
         mac_addresses = "${join(",", virtualbox_vm.server.*.network_adapter.0.mac_address)}"
     }
 
+    count = "${virtualbox_vm.server.count}"
     connection {
         type     = "ssh"
-        host     = "${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)}"
+        host     = "${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, count.index)}"
         user     = "packer"
         password = "packer"
         timeout  = "1m"
@@ -86,9 +87,10 @@ resource "null_resource" "client-provisioner" {
         mac_addresses = "${join(",", virtualbox_vm.client.*.network_adapter.0.mac_address)}"
     }
 
+    count = "${virtualbox_vm.client.count}"
     connection {
         type     = "ssh"
-        host     = "${element(virtualbox_vm.client.*.network_adapter.0.ipv4_address, 1)}"
+        host     = "${element(virtualbox_vm.client.*.network_adapter.0.ipv4_address, count.index)}"
         user     = "packer"
         password = "packer"
         timeout  = "1m"
@@ -139,10 +141,10 @@ resource "null_resource" "client-provisioner" {
     }
 }
 
-output "Server Connection" {
-    value = "ssh packer@${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)}"
+output "Servers" {
+    value = ["${virtualbox_vm.server.*.network_adapter.0.ipv4_address}"]
 }
 
-output "Client Connection" {
-    value = "ssh packer@${element(virtualbox_vm.client.*.network_adapter.0.ipv4_address, 1)}"
+output "Clients" {
+    value = ["${virtualbox_vm.client.*.network_adapter.0.ipv4_address}"]
 }
