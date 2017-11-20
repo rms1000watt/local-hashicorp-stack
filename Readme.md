@@ -16,14 +16,15 @@ The workflow is:
 - [Prerequisites](#prerequisites)
 - [Build](#build)
 - [Deploy](#deploy)
-- [Play](#play)
+- [Jobs](#jobs)
+- [UI](#ui)
 - [Attributions](#attributions)
 
 ## Prerequisites
 
 - OS X
 - [Homebrew](https://brew.sh/)
-- `brew install packer terraform`
+- `brew install packer terraform nomad`
 - `brew cask install virtualbox`
 
 ## Build
@@ -45,13 +46,32 @@ terraform apply
 cd ..
 ```
 
-## Play
+## Jobs
 
-Take the IP Address from the Terraform output then SSH into the VM, for example:
+Take the IP Address of the server deployment and run Nomad jobs:
 
 ```bash
-ssh packer@192.168.0.118
+cd nomad
+nomad run -address http://192.168.0.118:4646 redis-job.nomad
+nomad run -address http://192.168.0.118:4646 echo-job.nomad
+cd ..
 ```
+
+At a later time, you can stop the nomad jobs (but first look at [the UI](#ui)!):
+
+```bash
+cd nomad
+nomad stop -address http://192.168.0.118:4646 Echo-Job
+nomad stop -address http://192.168.0.118:4646 Redis-Job
+cd ..
+```
+
+## UI
+
+Using the IP Address of the server deployment, you can:
+
+- view the Nomad UI at: [http://192.168.0.118:4646/ui](http://192.168.0.118:4646/ui)
+- view the Consul UI at: [http://192.168.0.118:8500/ui](http://192.168.0.118:8500/ui)
 
 ## Attributions
 
