@@ -3,6 +3,5 @@
   "data_dir": "/consul/data",
   "datacenter": "dc-1",
   "server": false,
-  "node_name": "client",
   "retry_join": ["consul-server"]
 }

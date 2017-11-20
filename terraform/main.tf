@@ -130,10 +130,10 @@ resource "null_resource" "client-provisioner" {
 
     provisioner "remote-exec" {
         inline = [
+            "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)} consul-server' | sudo tee -a /etc/hosts",
             "sudo mv /nomad/systemd-nomad-client.service /etc/systemd/system/nomad.service",
             "sudo mv /consul/systemd-consul-client.service /etc/systemd/system/consul.service",
             "chmod a+x /home/packer/provision.sh",
-            "sudo echo -e '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)} consul-server' >> /etc/hosts",
             "sudo /home/packer/provision.sh",
         ]
     }
@@ -145,8 +145,4 @@ output "Server Connection" {
 
 output "Client Connection" {
     value = "ssh packer@${element(virtualbox_vm.client.*.network_adapter.0.ipv4_address, 1)}"
-}
-
-output "Update /etc/hosts" {
-    value = "${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)} consul-server"
 }
