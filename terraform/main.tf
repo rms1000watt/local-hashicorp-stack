@@ -1,9 +1,9 @@
 resource "virtualbox_vm" "server" {
-    count = 1
+    count = 3
     name = "${format("server-%02d", count.index+1)}"
     image = "../packer/output-virtualbox-iso/ubuntu-16.04-docker.box"
-    cpus = 2
-    memory = "1.0 gib"
+    cpus = 1
+    memory = "512 mb"
     network_adapter {
         type = "bridged"
         host_interface = "en0"
@@ -14,8 +14,8 @@ resource "virtualbox_vm" "client" {
     count = 3
     name = "${format("client-%02d", count.index+1)}"
     image = "../packer/output-virtualbox-iso/ubuntu-16.04-docker.box"
-    cpus = 2
-    memory = "1.0 gib"
+    cpus = 1
+    memory = "512 mb"
     network_adapter {
         type = "bridged"
         host_interface = "en0"
@@ -73,6 +73,9 @@ resource "null_resource" "server-provisioner" {
 
     provisioner "remote-exec" {
         inline = [
+            "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)} server-1' | sudo tee -a /etc/hosts",
+            "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 2)} server-2' | sudo tee -a /etc/hosts",
+            "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 3)} server-3' | sudo tee -a /etc/hosts",
             "sudo mv /nomad/systemd-nomad-server.service /etc/systemd/system/nomad.service",
             "sudo mv /consul/systemd-consul-server.service /etc/systemd/system/consul.service",
             "chmod a+x /home/packer/provision.sh",
@@ -132,7 +135,9 @@ resource "null_resource" "client-provisioner" {
 
     provisioner "remote-exec" {
         inline = [
-            "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)} consul-server' | sudo tee -a /etc/hosts",
+            "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)} server-1' | sudo tee -a /etc/hosts",
+            "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 2)} server-2' | sudo tee -a /etc/hosts",
+            "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 3)} server-3' | sudo tee -a /etc/hosts",
             "sudo mv /nomad/systemd-nomad-client.service /etc/systemd/system/nomad.service",
             "sudo mv /consul/systemd-consul-client.service /etc/systemd/system/consul.service",
             "chmod a+x /home/packer/provision.sh",

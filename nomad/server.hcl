@@ -4,9 +4,9 @@ datacenter = "dc-1"
 
 server {
   enabled          = true
-  bootstrap_expect = 1
+  bootstrap_expect = 3
 
-  # retry_join = ["${NOMAD_SERVER_ADDRESS_1}", "${NOMAD_SERVER_ADDRESS_2}", "${NOMAD_SERVER_ADDRESS_3}"]
+  retry_join = ["server-1", "server-2", "server-3"]
 }
 
 ports {

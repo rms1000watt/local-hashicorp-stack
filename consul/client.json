@@ -3,5 +3,5 @@
   "data_dir": "/consul/data",
   "datacenter": "dc-1",
   "server": false,
-  "retry_join": ["consul-server"]
+  "retry_join": ["server-1", "server-2", "server-3"]
 }

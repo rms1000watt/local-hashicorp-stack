@@ -4,8 +4,9 @@
   "datacenter": "dc-1",
   "server": true,
   "ui": true,
-  "bootstrap_expect": 1,
+  "bootstrap_expect": 3,
   "addresses": {
     "http": "0.0.0.0"
-  }
+  },
+  "retry_join": ["server-1", "server-2", "server-3"]
 }

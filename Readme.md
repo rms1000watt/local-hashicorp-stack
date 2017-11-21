@@ -2,6 +2,20 @@
 
 ## Introduction
 
+This projects lets you run a 3 Server + 3 Client Nomad/Consul cluster in 6 Virtualbox VMs on OS X using Packer & Terraform
+
+## Contents
+
+- [Motivation](#motivation)
+- [Prerequisites](#prerequisites)
+- [Build](#build)
+- [Deploy](#deploy)
+- [Jobs](#jobs)
+- [UI](#ui)
+- [Attributions](#attributions)
+
+## Motivation
+
 HashiCorp tools enable you to build/maintain multi-datacenter systems with ease. However, you usually don't have datacenters to play with. This project builds VirtualBox VMs that you can run Terraform against to play with Nomad, Consul, etc.
 
 The workflow is:
@@ -10,15 +24,6 @@ The workflow is:
 - Play with Nomad, Consul, etc.
 
 (Packer is used directly instead of Vagrant so the pipeline is the same when you build & deploy against hypervisors and clouds)
-
-## Contents
-
-- [Prerequisites](#prerequisites)
-- [Build](#build)
-- [Deploy](#deploy)
-- [Jobs](#jobs)
-- [UI](#ui)
-- [Attributions](#attributions)
 
 ## Prerequisites
 
@@ -51,16 +56,16 @@ cd ..
 Take the IP Address of the server deployment and run Nomad jobs:
 
 ```bash
-cd nomad
+cd jobs
 nomad run -address http://192.168.0.118:4646 redis-job.nomad
 nomad run -address http://192.168.0.118:4646 echo-job.nomad
 cd ..
 ```
 
-At a later time, you can stop the nomad jobs (but first look at [the UI](#ui)!):
+At a later time, you can stop the nomad jobs (but first look at [the UI](#ui)):
 
 ```bash
-cd nomad
+cd jobs
 nomad stop -address http://192.168.0.118:4646 Echo-Job
 nomad stop -address http://192.168.0.118:4646 Redis-Job
 cd ..
