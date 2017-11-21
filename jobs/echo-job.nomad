@@ -15,6 +15,26 @@ job "Echo-Job" {
           "-text", "hello world",
         ]
       }
+
+      service {
+        name = "EchoServer"
+        port = "echoPort"
+        check {
+          type     = "http"
+          port     = "echoPort"
+          path     = "/"
+          interval = "15s"
+          timeout  = "10s"
+        }
+      }
+
+      resources {
+        network {
+          port "echoPort" {
+            static = "5678"
+          }
+        }
+      }
     }
   }
 }
