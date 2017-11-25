@@ -46,6 +46,8 @@ cd ../..
 
 ```bash
 cd terraform
+# Remove any cached golden images before redeploying
+rm -rf ~/.terraform/virtualbox/gold/ubuntu-16.04-docker 
 terraform init
 terraform apply
 cd ..
@@ -82,3 +84,4 @@ Using the IP Address of the server deployment, you can:
 
 - [https://github.com/geerlingguy/packer-ubuntu-1604](https://github.com/geerlingguy/packer-ubuntu-1604)
 - [https://github.com/ccll/terraform-provider-virtualbox](https://github.com/ccll/terraform-provider-virtualbox)
+- [https://github.com/hashicorp/nomad/tree/master/terraform](https://github.com/hashicorp/nomad/tree/master/terraform)
