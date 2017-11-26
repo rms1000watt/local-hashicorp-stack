@@ -3,9 +3,13 @@ Description=Nomad
 Documentation=https://nomadproject.io/docs/
 
 [Service]
+Restart=on-failure
 ExecStart=/bin/nomad agent -config /nomad/client.hcl
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65536
+KillSignal=SIGTERM
+User=root
+Group=root
 
 [Install]
 WantedBy=multi-user.target

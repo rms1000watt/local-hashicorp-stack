@@ -3,11 +3,15 @@ Description=Consul
 Documentation=https://consul.io/docs/
 
 [Service]
+Restart=on-failure
 ExecStartPre=/bin/bash -c "/bin/systemctl set-environment CONSUL_ADDR=$(ifconfig eth0 | grep 'inet addr' | cut -d ':' -f 2 | cut -d ' ' -f 1)"
 ExecStartPre=/bin/bash -c "/bin/systemctl set-environment CONSUL_NODE_NAME=$(hostname)-$(ifconfig eth0 | grep 'inet addr' | cut -d ':' -f 2 | cut -d ' ' -f 1 | cut -d '.' -f 4)"
 ExecStart=/bin/consul agent -config-file /consul/client.json -bind ${CONSUL_ADDR} -node ${CONSUL_NODE_NAME}
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65536
+KillSignal=SIGTERM
+User=root
+Group=root
 
 [Install]
 WantedBy=multi-user.target

@@ -22,6 +22,7 @@ job "hdfs" {
           ipc = 8020
           ui = 50070
         }
+        dns_servers = ["127.0.0.1"]
       }
 
       resources {
@@ -63,11 +64,16 @@ job "hdfs" {
           , "-D", "fs.defaultFS=hdfs://hdfs.service.consul/"
           , "-D", "dfs.permissions.enabled=false"
         ]
+        // args = [ "hdfs", "datanode"
+        //   , "-D", "fs.defaultFS=hdfs://192.168.0.154:8020/"
+        //   , "-D", "dfs.permissions.enabled=false"
+        // ]
         port_map {
           data = 50010
           ipc = 50020
           ui = 50075
         }
+        dns_servers = ["127.0.0.1"]
       }
 
       resources {

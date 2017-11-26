@@ -3,10 +3,14 @@ Description=Nomad
 Documentation=https://nomadproject.io/docs/
 
 [Service]
+Restart=on-failure
 ExecStartPre=/bin/bash -c "/bin/systemctl set-environment NOMAD_NODE_NAME=$(hostname)-$(ifconfig eth0 | grep 'inet addr' | cut -d ':' -f 2 | cut -d ' ' -f 1 | cut -d '.' -f 4)"
 ExecStart=/bin/nomad agent -config /nomad/server.hcl -node ${NOMAD_NODE_NAME}
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65536
+KillSignal=SIGTERM
+User=root
+Group=root
 
 [Install]
 WantedBy=multi-user.target

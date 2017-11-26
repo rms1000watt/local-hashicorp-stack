@@ -8,5 +8,8 @@
   "addresses": {
     "http": "0.0.0.0"
   },
-  "retry_join": ["server-1", "server-2", "server-3"]
+  "retry_join": ["server-1", "server-2", "server-3"],
+  "ports": {
+    "dns": 53
+  }
 }
