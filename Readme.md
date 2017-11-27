@@ -12,6 +12,7 @@ This projects lets you run a 3 Server + 3 Client Nomad/Consul cluster in 6 Virtu
 - [Deploy](#deploy)
 - [Jobs](#jobs)
 - [UI](#ui)
+- [HDFS](#hdfs)
 - [Attributions](#attributions)
 
 ## Motivation
@@ -79,6 +80,20 @@ Using the IP Address of the server deployment, you can:
 
 - view the Nomad UI at: [http://192.168.0.118:4646/ui](http://192.168.0.118:4646/ui)
 - view the Consul UI at: [http://192.168.0.118:8500/ui](http://192.168.0.118:8500/ui)
+
+## HDFS
+
+You can deploy HDFS by running:
+
+```bash
+cd jobs
+nomad run -address http://192.168.0.118:4646 hdfs.nomad
+cd ..
+```
+
+(Give it a minute to download the docker image..)
+
+Then you can view the UI at: [http://192.168.0.118:50070/](http://192.168.0.118:50070/)
 
 ## Attributions
 
