@@ -82,3 +82,7 @@ fi
 
 # Hadoop (to enable the HDFS CLI)
 wget -O - http://apache.mirror.iphh.net/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | sudo tar xz -C /usr/local/
+
+# Update ~/.bashrc for Spark
+echo "export PATH=$PATH:/usr/local/bin/spark/bin:/usr/local/hadoop-$HADOOP_VERSION/bin" | sudo tee --append /home/packer/.bashrc
+echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre" | sudo tee --append /home/packer/.bashrc

@@ -19,3 +19,18 @@ systemctl start consul
 # Start Nomad
 systemctl enable nomad.service
 systemctl start nomad
+
+# TODO: Remove this and provision at Packer time
+# Update ~/.bashrc for Spark
+if ! grep -q "/usr/local/bin/spark/bin" ~/.bashrc; then 
+  echo "export PATH=$PATH:/usr/local/bin/spark/bin:/usr/local/hadoop-2.7.4/bin" | sudo tee -a ~/.bashrc
+fi
+
+if ! grep -q "java-8-openjdk-amd64" ~/.bashrc; then 
+  echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre" | sudo tee -a ~/.bashrc 
+fi
+
+# Update ~/.bashrc for Spark
+if ! grep -q "NOMAD_ADDR" ~/.bashrc; then 
+  echo "export NOMAD_ADDR=http://server-1:4646" | sudo tee -a ~/.bashrc
+fi

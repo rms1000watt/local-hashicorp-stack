@@ -37,15 +37,6 @@ resource "null_resource" "server-provisioner" {
         timeout  = "1m"
     }
 
-    # provisioner "remote-exec" {
-    #     inline = [
-    #         "sudo mkdir /nomad",
-    #         "sudo chmod 777 /nomad",
-    #         "sudo mkdir /consul",
-    #         "sudo chmod 777 /consul",
-    #     ]
-    # }
-
     provisioner "file" {
         source      = "../nomad/server.hcl"
         destination = "/nomad/server.hcl"
@@ -98,15 +89,6 @@ resource "null_resource" "client-provisioner" {
         password = "packer"
         timeout  = "1m"
     }
-
-    # provisioner "remote-exec" {
-    #     inline = [
-    #         "sudo mkdir /nomad",
-    #         "sudo chmod 777 /nomad",
-    #         "sudo mkdir /consul",
-    #         "sudo chmod 777 /consul",
-    #     ]
-    # }
 
     provisioner "file" {
         source      = "../nomad/client.hcl"

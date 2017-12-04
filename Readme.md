@@ -13,6 +13,7 @@ This projects lets you run a 3 Server + 3 Client Nomad/Consul cluster in 6 Virtu
 - [Jobs](#jobs)
 - [UI](#ui)
 - [HDFS](#hdfs)
+- [Spark](#spark)
 - [Attributions](#attributions)
 
 ## Motivation
@@ -94,6 +95,31 @@ cd ..
 (Give it a minute to download the docker image..)
 
 Then you can view the UI at: [http://192.168.0.118:50070/](http://192.168.0.118:50070/)
+
+## Spark
+
+**THIS SECTION IS BROKEN AND I'M CURRENTLY DEBUGGING IT...**
+
+SSH into a server node then start PySpark:
+
+```bash
+pyspark \
+  --master nomad \
+  --conf spark.executor.instances=4 \
+  --conf spark.nomad.sparkDistribution=https://s3.amazonaws.com/nomad-spark/spark-2.1.0-bin-nomad.tgz
+```
+
+Then run some PySpark commands:
+
+```python
+df = spark.read.json("/usr/local/bin/spark/examples/src/main/resources/people.json")
+df.show()
+df.printSchema()
+df.createOrReplaceTempView("people")
+sqlDF = spark.sql("SELECT * FROM people")
+sqlDF.show()
+```
+
 
 ## Attributions
 
