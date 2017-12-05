@@ -98,15 +98,14 @@ Then you can view the UI at: [http://192.168.0.118:50070/](http://192.168.0.118:
 
 ## Spark
 
-**THIS SECTION IS BROKEN AND I'M CURRENTLY DEBUGGING IT...**
-
 SSH into a server node then start PySpark:
 
 ```bash
 pyspark \
-  --master nomad \
-  --conf spark.executor.instances=4 \
-  --conf spark.nomad.sparkDistribution=https://s3.amazonaws.com/nomad-spark/spark-2.1.0-bin-nomad.tgz
+--master nomad \
+--conf spark.executor.instances=2 \
+--conf spark.nomad.datacenters=dc-1 \
+--conf spark.nomad.sparkDistribution=local:///usr/local/bin/spark
 ```
 
 Then run some PySpark commands:
@@ -119,7 +118,6 @@ df.createOrReplaceTempView("people")
 sqlDF = spark.sql("SELECT * FROM people")
 sqlDF.show()
 ```
-
 
 ## Attributions
 

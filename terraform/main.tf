@@ -15,7 +15,7 @@ resource "virtualbox_vm" "client" {
     name = "${format("client-%02d", count.index+1)}"
     image = "../packer/output-virtualbox-iso/ubuntu-16.04-docker.box"
     cpus = 1
-    memory = "512 mb"
+    memory = "2048 mb"
     network_adapter {
         type = "bridged"
         host_interface = "en0"
