@@ -5,6 +5,7 @@ DOCKER_VERSION=17.06.2~ce-0~ubuntu
 DOCKER_COMPOSE_VERSION=1.16.1
 NOMAD_VERSION=0.7.0
 CONSUL_VERSION=1.0.0
+VAULT_VERSION=0.9.1
 HADOOP_VERSION=2.7.4
 
 # Passwordless sudo
@@ -48,6 +49,14 @@ if [ ! -f /bin/nomad ]; then
   unzip -d /bin nomad_${NOMAD_VERSION}_linux_amd64.zip
   rm nomad_${NOMAD_VERSION}_linux_amd64.zip
   chmod +x /bin/nomad
+fi
+
+# Vault
+if [ ! -f /bin/vault ]; then
+  curl -L -o vault_${VAULT_VERSION}_linux_amd64.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
+  unzip -d /bin vault_${VAULT_VERSION}_linux_amd64.zip
+  rm vault_${VAULT_VERSION}_linux_amd64.zip
+  chmod +x /bin/vault
 fi
 
 # Install Docker

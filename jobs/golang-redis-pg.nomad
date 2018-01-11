@@ -20,7 +20,6 @@ job "Golang-Redis-PG" {
 
       config {
         image        = "rms1000watt/golang-redis-pg:latest"
-        // privileged   = true
         network_mode = "host"
         dns_servers = ["127.0.0.1"]
       }
@@ -52,7 +51,6 @@ job "Golang-Redis-PG" {
 
       config {
         image        = "redis:4.0.6-alpine"
-        // privileged   = true
         network_mode = "host"
       }
 
@@ -84,8 +82,6 @@ job "Golang-Redis-PG" {
       env {
         POSTGRES_USER     = "postgres"
         POSTGRES_PASSWORD = "password"
-        // PGUSER            = "root"
-        // PGDATA            = "/tmp/pgdata"
       }
 
       config {
@@ -94,7 +90,6 @@ job "Golang-Redis-PG" {
         network_mode = "host"
         volumes = [ "local/postgres:/var/lib/postgresql/data" ]
       }
-      
 
       service {
         name = "PostgresServer"

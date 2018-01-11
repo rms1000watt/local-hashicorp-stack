@@ -73,6 +73,7 @@ resource "null_resource" "server-provisioner" {
 
     provisioner "remote-exec" {
         inline = [
+            "echo 'do envsubst here... export ${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, count.index)} && envsubst < /vault/server.hcl > /vault/server.hcl'",
             "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)} server-1' | sudo tee -a /etc/hosts",
             "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 2)} server-2' | sudo tee -a /etc/hosts",
             "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 3)} server-3' | sudo tee -a /etc/hosts",
