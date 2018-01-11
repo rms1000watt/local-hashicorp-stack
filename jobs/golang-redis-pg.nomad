@@ -2,7 +2,7 @@ job "Golang-Redis-PG" {
   datacenters = ["dc-1"]
 
   group "Golang-Group" {
-    count = 2
+    count = 1
 
     task "Golang-Task" {
       driver = "docker"
@@ -108,6 +108,7 @@ job "Golang-Redis-PG" {
       }
 
       resources {
+        memory = 512
         network {
           port "postgresPort" {
             static = "5432"
