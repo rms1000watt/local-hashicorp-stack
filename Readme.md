@@ -55,6 +55,13 @@ terraform apply
 cd ..
 ```
 
+You can ssh onto a host by running:
+
+```bash
+ssh -o 'IdentitiesOnly yes' packer@192.168.0.118
+# password: packer
+```
+
 ## Jobs
 
 Take the IP Address of the server deployment and run Nomad jobs:
@@ -63,7 +70,14 @@ Take the IP Address of the server deployment and run Nomad jobs:
 cd jobs
 nomad run -address http://192.168.0.118:4646 redis-job.nomad
 nomad run -address http://192.168.0.118:4646 echo-job.nomad
+nomad run -address http://192.168.0.118:4646 golang-redis-pg.nomad
 cd ..
+```
+
+You can view the logs of an `allocation`:
+
+```bash
+nomad logs -address http://192.168.0.118:4646 bf90d9cb
 ```
 
 At a later time, you can stop the nomad jobs (but first look at [the UI](#ui)):
@@ -72,6 +86,7 @@ At a later time, you can stop the nomad jobs (but first look at [the UI](#ui)):
 cd jobs
 nomad stop -address http://192.168.0.118:4646 Echo-Job
 nomad stop -address http://192.168.0.118:4646 Redis-Job
+nomad stop -address http://192.168.0.118:4646 Golang-Redis-PG
 cd ..
 ```
 
