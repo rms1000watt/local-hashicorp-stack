@@ -4,7 +4,6 @@ Documentation=https://vaultproject.io/docs/
 
 [Service]
 Restart=on-failure
-ExecStartPre=/bin/bash -c "/bin/systemctl set-environment VAULT_ADDR=$(ifconfig eth0 | grep 'inet addr' | cut -d ':' -f 2 | cut -d ' ' -f 1) && envsubst < /vault/server.hcl > /vault/server.hcl"
 ExecStart=/bin/vault server -config /vault/server.hcl
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65536

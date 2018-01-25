@@ -20,6 +20,10 @@ systemctl start consul
 systemctl enable nomad.service
 systemctl start nomad
 
+# Start Vault
+systemctl enable vault.service
+systemctl start vault
+
 # TODO: Remove this and provision at Packer time
 # Update ~/.bashrc for Spark
 if ! grep -q "/usr/local/bin/spark/bin" ~/.bashrc; then 

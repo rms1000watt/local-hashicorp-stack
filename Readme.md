@@ -14,6 +14,7 @@ This projects lets you run a 3 Server + 3 Client Nomad/Consul cluster in 6 Virtu
 - [UI](#ui)
 - [HDFS](#hdfs)
 - [Spark](#spark)
+- [Vault](#vault)
 - [Attributions](#attributions)
 
 ## Motivation
@@ -133,6 +134,27 @@ df.createOrReplaceTempView("people")
 sqlDF = spark.sql("SELECT * FROM people")
 sqlDF.show()
 ```
+
+## Vault
+
+Init the Vault system and go through the process for 1 of the Vault servers
+
+```bash
+vault init   -address http://192.168.0.118:8200
+vault unseal -address http://192.168.0.118:8200
+vault auth   -address=http://192.168.0.118:8200 66344296-222d-5be6-e052-15679209e0e7
+vault write  -address=http://192.168.0.118:8200 secret/names name=ryan
+vault read   -address=http://192.168.0.118:8200 secret/names
+```
+
+Then unseal the other Vault servers for HA
+
+```bash
+vault unseal -address http://192.168.0.125:8200
+vault unseal -address http://192.168.0.161:8200
+```
+
+Then check Consul to see the health checks show that all the vault servers are unlocked
 
 ## Attributions
 

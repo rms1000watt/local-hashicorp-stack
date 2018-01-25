@@ -41,8 +41,10 @@ resource "null_resource" "server-provisioner" {
         inline = [
             "sudo mkdir /nomad",
             "sudo mkdir /consul",
+            "sudo mkdir /vault",
             "sudo chmod 777 /nomad",
             "sudo chmod 777 /consul",
+            "sudo chmod 777 /vault",
         ]
     }
 
@@ -67,18 +69,28 @@ resource "null_resource" "server-provisioner" {
     }
 
     provisioner "file" {
+        source      = "../vault/server.hcl"
+        destination = "/vault/server.hcl"
+    }
+
+    provisioner "file" {
+        source      = "../vault/systemd-vault-server.service"
+        destination = "/vault/systemd-vault-server.service"
+    }
+
+    provisioner "file" {
         source      = "provision.sh"
         destination = "/home/packer/provision.sh"
     }
 
     provisioner "remote-exec" {
         inline = [
-            "echo 'do envsubst here... export ${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, count.index)} && envsubst < /vault/server.hcl > /vault/server.hcl'",
             "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 1)} server-1' | sudo tee -a /etc/hosts",
             "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 2)} server-2' | sudo tee -a /etc/hosts",
             "echo '${element(virtualbox_vm.server.*.network_adapter.0.ipv4_address, 3)} server-3' | sudo tee -a /etc/hosts",
             "sudo mv /nomad/systemd-nomad-server.service /etc/systemd/system/nomad.service",
             "sudo mv /consul/systemd-consul-server.service /etc/systemd/system/consul.service",
+            "sudo mv /vault/systemd-vault-server.service /etc/systemd/system/vault.service",
             "chmod a+x /home/packer/provision.sh",
             "sudo /home/packer/provision.sh",
         ]
