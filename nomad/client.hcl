@@ -5,6 +5,7 @@ datacenter = "dc-1"
 client {
     enabled = true
     options {
+        "driver.raw_exec.enable" = "true"
         "docker.privileged.enabled" = "true"
     }
 }

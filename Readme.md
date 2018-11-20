@@ -50,7 +50,7 @@ cd ../..
 ```bash
 cd terraform
 # Remove any cached golden images before redeploying
-rm -rf ~/.terraform/virtualbox/gold/ubuntu-16.04-docker 
+rm -rf ~/.terraform/virtualbox/gold/ubuntu-16.04-docker
 terraform init
 terraform apply
 cd ..
@@ -72,6 +72,8 @@ cd jobs
 nomad run -address http://192.168.0.118:4646 redis-job.nomad
 nomad run -address http://192.168.0.118:4646 echo-job.nomad
 nomad run -address http://192.168.0.118:4646 golang-redis-pg.nomad
+nomad run -address http://192.168.0.118:4646 raw.nomad
+nomad run -address http://10.10.6.32:4646 raw.nomad
 cd ..
 ```
 
