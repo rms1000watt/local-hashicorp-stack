@@ -73,7 +73,6 @@ nomad run -address http://192.168.0.118:4646 redis-job.nomad
 nomad run -address http://192.168.0.118:4646 echo-job.nomad
 nomad run -address http://192.168.0.118:4646 golang-redis-pg.nomad
 nomad run -address http://192.168.0.118:4646 raw.nomad
-nomad run -address http://10.10.6.32:4646 raw.nomad
 cd ..
 ```
 
@@ -90,6 +89,7 @@ cd jobs
 nomad stop -address http://192.168.0.118:4646 Echo-Job
 nomad stop -address http://192.168.0.118:4646 Redis-Job
 nomad stop -address http://192.168.0.118:4646 Golang-Redis-PG
+nomad stop -address http://192.168.0.118:4646 view_files
 cd ..
 ```
 
